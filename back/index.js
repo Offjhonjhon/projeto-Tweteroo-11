@@ -4,10 +4,6 @@ import cors from 'cors';
 const users = [];
 const tweets = [];
 
-for (let i = 1; i < 31; i++) {
-    tweets.push({ username: 'John', tweet: `${i}`, avatar: 'https://geekdama.com.br/wp-content/uploads/20…ar-5-fanart-autor-desconhecido-postcover.jpg' });
-}
-
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -46,7 +42,7 @@ app.post('/tweets', (req, res) => {
 app.get('/tweets', (req, res) => {
     let page = req.query.page;
     if (page && page >= 1) {
-        let lastTweets = tweets.slice(- page * 10, tweets.length - (page - 1) * 10);
+        let lastTweets = tweets.slice(- page * 10, tweets.length - (page - 1) * 10).reverse();
         tweets.forEach(tweet => {
             users.forEach(user => {
                 if (tweet.username === user.username) {
