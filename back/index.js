@@ -29,7 +29,15 @@ app.post('/tweets', (req, res) => {
 })
 
 app.get('/tweets', (req, res) => {
-
+    let lastTenTweets = tweets.slice(-10);
+    tweets.forEach(tweet => {
+        users.forEach(user => {
+            if (tweet.username === user.username) {
+                tweet.avatar = user.avatar;
+            }
+        })
+    })
+    res.send(lastTenTweets);
 })
 
 app.listen(5000);
